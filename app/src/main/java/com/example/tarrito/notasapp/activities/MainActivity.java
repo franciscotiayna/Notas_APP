@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
     private MyAdapter adapter;
     private GridView gridView;
     final Context context = this;
-    String notas, notas2, auxtext;
-    int posicion, nuevapos, auxcolor;
+    String notas, notas2, texto_auxiliar;
+    int posicion_nota, nuevapos, color_auxiliar;
 
     private Realm realm;
     private RealmResults<Nota> nota;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
                 return true;
             case R.id.change_item: {
                 // get prompts.xml view
-                posicion = info.position;
+                posicion_nota = info.position;
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.popup, null);
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
                                         notas2 = String.valueOf(userInput.getText());
 
                                         realm.beginTransaction();
-                                        nota.get(posicion).setNota(notas2);
+                                        nota.get(posicion_nota).setNota(notas2);
                                         realm.commitTransaction();
 
                                     }
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
 
             case R.id.change_position:
 
-                posicion = info.position;
+                posicion_nota = info.position;
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.popup_position, null);
 
@@ -173,12 +173,12 @@ public class MainActivity extends AppCompatActivity implements RealmChangeListen
 
 
                                                 realm.beginTransaction();
-                                                auxcolor = nota.get(nuevapos-1).getColor();
-                                                auxtext = nota.get(nuevapos-1).getNota();
-                                                nota.get(nuevapos-1).setColor(nota.get(posicion).getColor());
-                                                nota.get(nuevapos-1).setNota(nota.get(posicion).getNota());
-                                                nota.get(posicion).setColor(auxcolor);
-                                                nota.get(posicion).setNota(auxtext);
+                                                color_auxiliar = nota.get(nuevapos-1).getColor();
+                                                texto_auxiliar = nota.get(nuevapos-1).getNota();
+                                                nota.get(nuevapos-1).setColor(nota.get(posicion_nota).getColor());
+                                                nota.get(nuevapos-1).setNota(nota.get(posicion_nota).getNota());
+                                                nota.get(posicion_nota).setColor(color_auxiliar);
+                                                nota.get(posicion_nota).setNota(texto_auxiliar);
                                                 realm.commitTransaction();
                                             }
                                             else{
